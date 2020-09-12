@@ -140,11 +140,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ethInterface.h" />
+    <ClInclude Include="netAddr.h" />
     <ClInclude Include="NetSim.h" />
     <ClInclude Include="router.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ethInterface.cpp" />
+    <ClCompile Include="netAddr.cpp" />
     <ClCompile Include="NetSim.cpp" />
     <ClCompile Include="router.cpp" />
   </ItemGroup>

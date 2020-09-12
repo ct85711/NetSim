@@ -1,28 +1,24 @@
 #pragma once
 
-#include <tuple>
 #include <vector>
 #include <string>
+#include "netAddr.h"
 
-//These structs setup the address groupings
-struct ipv4addr
-{
-	ipv4addr() = default;
-	std::tuple<int, int, int, int> address;
-	std::tuple<int, int, int, int> netmask;
-};
-
-struct ipv6addr
-{
-	std::tuple<char[4], char[4], char[4], char[4], char[4], char[4], char[4], char[4]> address;
-	std::tuple<char[4], char[4], char[4], char[4], char[4], char[4], char[4], char[4]> netmask;
-};
+//This makes it so the program can initialize the netAddress class
+netAddress* netAddress::address = 0;
+using namespace std;
 
 class ethInterface
 {
+	netAddress *addressFactory = netAddress::getInstance();
+public:
+
 	ethInterface() = default;
-	ethInterface(ipv4addr*);
-	ethInterface(std::tuple<int, int, int, int>, std::tuple<int, int, int, int>);
 	~ethInterface() = default;
-	std::vector<> addresses;
+	vector<void*> addresses;
+
+	void addipv4address(string cidr);
+	void addipv4address(string addr, string mask);
+	void addipv6address(string cidr);
+	void addipv6address(string addr, string mask);
 };
