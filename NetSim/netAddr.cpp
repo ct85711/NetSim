@@ -89,30 +89,30 @@ void* netAddress::setIpv6Address(string ipAddr, string mask)
 
 std::ostream& operator<<(std::ostream& out, const netAddress::ipv4addr& ipv4)
 {
-	ostringstream sout;
+	stringstream sout;
 	sout << "Ipv4 Address: " << ipv4.address << "\n" << "Subnet Mask: " << ipv4.netmask;
-	return sout;
+	return (out << sout.str());
 }
 
 std::ostream& operator<<(std::ostream& out, const netAddress::ipv6addr& ipv6)
 {
-	ostringstream sout;
+	stringstream sout;
 	sout << "Ipv4 Address: " << ipv6.address << "\n" << "Subnet Mask: " << ipv6.netmask;
-	return sout;
+	return (out << sout.str());
 }
 
 std::ostream& operator<<(std::ostream& out, const tuple<short, short, short, short>& addr)
 {
 	auto[part1, part2, part3, part4] = addr;
-	ostringstream sout;
+	stringstream sout;
 	sout << part1 << "." << part2 << "." << part3 << "." << part4;
-	return (sout);
+	return (out << sout.str());
 }
 
 std::ostream& operator<<(std::ostream& out, const tuple<char[4], char[4], char[4], char[4], char[4], char[4], char[4], char[4]>& addr)
 {
 	auto [part1, part2, part3, part4, part5, part6, part7, part8] = addr;
-	ostringstream sout;
+	stringstream sout;
 	sout << part1 << ":" << part2 << ":" << part3 << ":" << part4 << ":" << part5 << ":" << part6 << ":" << part7 << ":" << part8;
-	return (sout);
+	return (out << sout.str());
 }
