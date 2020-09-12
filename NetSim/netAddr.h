@@ -11,8 +11,10 @@ class netAddress {
 	struct ipv4addr
 	{
 		ipv4addr() = default;
-		tuple<int, int, int, int> address;
-		tuple<int, int, int, int> netmask;
+		tuple<short, short, short, short> address;
+		tuple<short, short, short, short> netmask;
+
+		
 	};
 
 	struct ipv6addr
@@ -34,4 +36,10 @@ class netAddress {
 		void* setIpv6Address(string cidrNotation);
 		//This converts the given ip address and mask strings into it's component parts
 		void* setIpv6Address(string ipAddr, string mask);
+		friend std::ostream& operator<<(std::ostream& out, const netAddress::ipv4addr& ipv4);
+		friend std::ostream& operator<<(std::ostream& out, const netAddress::ipv6addr& ipv6);
 };
+
+//Overload the tuple's output, so that it can output the addresses in the correct format
+std::ostream& operator<<(std::ostream& out, const tuple<short, short, short, short> &addr);
+std::ostream& operator<<(std::ostream& out, const tuple<char[4], char[4], char[4], char[4], char[4], char[4], char[4], char[4]>& addr);

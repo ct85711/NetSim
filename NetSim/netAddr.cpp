@@ -1,4 +1,5 @@
 #include "netAddr.h"
+#include <sstream>
 
 netAddress* netAddress::getInstance()
 {
@@ -18,31 +19,31 @@ void* netAddress::setIpv4Address(string cidrNotation)
 	//Get the mask bit amount
 	int mask = std::stoi(cidrNotation.substr(++pos));
 	string addressPortion = cidrNotation.substr(0U, --pos);
-	int ipParts[4];
+	short ipParts[4];
 	for (int part = 0; part < 4; part++)
 	{
 		pos = addressPortion.find('.');
 		ipParts[part] = std::stoi(addressPortion.substr(0U,pos));
 		addressPortion = addressPortion.substr(pos + 1);
 	}
-	theAddress->address = tuple < int, int, int, int>(ipParts[0], ipParts[1], ipParts[2], ipParts[3]);
+	theAddress->address = tuple <short, short, short, short>(ipParts[0], ipParts[1], ipParts[2], ipParts[3]);
 
 	//Sadly, you can't do ranges in a switch case with visual Studio c++, so I am stuck using if statements
 	
 	if (mask >=24) {
 		mask = 32 - mask;
 		unsigned char thebits = 255 << mask;
-		theAddress->netmask = tuple < int, int, int, int>(255, 255, 255, thebits);
+		theAddress->netmask = tuple <short, short, short, short>(255, 255, 255, thebits);
 	}
 	else if (mask >=16) {
 		mask = 24 - mask;
 		unsigned char thebits = 255 << mask;
-		theAddress->netmask = tuple < int, int, int, int>(255, 255, thebits, 0);
+		theAddress->netmask = tuple <short, short, short, short>(255, 255, thebits, 0);
 	}
 	else {
 		mask = 16 - mask;
 		unsigned char thebits = 255 << mask;
-		theAddress->netmask = tuple < int, int, int, int>(255, thebits, 0, 0);
+		theAddress->netmask = tuple <short, short, short, short>(255, thebits, 0, 0);
 	}
 	
 	return theAddress;
@@ -52,7 +53,7 @@ void* netAddress::setIpv4Address(string ipAddr, string mask)
 {
 	int pos = 0;
 	ipv4addr* theAddress = new ipv4addr;
-	int addrParts[4];
+	short addrParts[4];
 
 	//Convert the ip address string into it's parts
 	for (int part = 0; part < 4; part++)
@@ -61,7 +62,7 @@ void* netAddress::setIpv4Address(string ipAddr, string mask)
 		addrParts[part] = std::stoi(ipAddr.substr(0U, pos));
 		ipAddr = ipAddr.substr(pos + 1);
 	}
-	theAddress->address = tuple < int, int, int, int>(addrParts[0], addrParts[1], addrParts[2], addrParts[3]);
+	theAddress->address = tuple <short, short, short, short>(addrParts[0], addrParts[1], addrParts[2], addrParts[3]);
 
 	//convert the netmask into it's parts
 	for (int part = 0; part < 4; part++)
@@ -70,7 +71,7 @@ void* netAddress::setIpv4Address(string ipAddr, string mask)
 		addrParts[part] = std::stoi(mask.substr(0U, pos));
 		mask = mask.substr(pos + 1);
 	}
-	theAddress->netmask = tuple < int, int, int, int>(addrParts[0], addrParts[1], addrParts[2], addrParts[3]);
+	theAddress->netmask = tuple <short, short, short, short>(addrParts[0], addrParts[1], addrParts[2], addrParts[3]);
 	return theAddress;
 }
 
@@ -84,4 +85,34 @@ void* netAddress::setIpv6Address(string ipAddr, string mask)
 {
 	ipv6addr* theAddress = new ipv6addr;
 	return theAddress;
+}
+
+std::ostream& operator<<(std::ostream& out, const netAddress::ipv4addr& ipv4)
+{
+	ostringstream sout;
+	sout << "Ipv4 Address: " << ipv4.address << "\n" << "Subnet Mask: " << ipv4.netmask;
+	return sout;
+}
+
+std::ostream& operator<<(std::ostream& out, const netAddress::ipv6addr& ipv6)
+{
+	ostringstream sout;
+	sout << "Ipv4 Address: " << ipv6.address << "\n" << "Subnet Mask: " << ipv6.netmask;
+	return sout;
+}
+
+std::ostream& operator<<(std::ostream& out, const tuple<short, short, short, short>& addr)
+{
+	auto[part1, part2, part3, part4] = addr;
+	ostringstream sout;
+	sout << part1 << "." << part2 << "." << part3 << "." << part4;
+	return (sout);
+}
+
+std::ostream& operator<<(std::ostream& out, const tuple<char[4], char[4], char[4], char[4], char[4], char[4], char[4], char[4]>& addr)
+{
+	auto [part1, part2, part3, part4, part5, part6, part7, part8] = addr;
+	ostringstream sout;
+	sout << part1 << ":" << part2 << ":" << part3 << ":" << part4 << ":" << part5 << ":" << part6 << ":" << part7 << ":" << part8;
+	return (sout);
 }
