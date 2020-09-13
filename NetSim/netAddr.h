@@ -5,7 +5,7 @@
 using namespace std;
 
 class netAddress {
-	static netAddress *address;
+	
 
 	//These structs setup the address groupings
 	struct ipv4addr
@@ -20,9 +20,13 @@ class netAddress {
 		tuple<char[4], char[4], char[4], char[4], char[4], char[4], char[4], char[4]> address;
 		tuple<char[4], char[4], char[4], char[4], char[4], char[4], char[4], char[4]> netmask;
 	};
-	
+	static netAddress *address;
 	netAddress() = default;
 	~netAddress() = default;
+
+	//Disable the copy and assignment operations
+	netAddress(netAddress& other) = delete;
+	void operator=(const netAddress& other) = delete;
 
 	public:
 		static netAddress *getInstance();

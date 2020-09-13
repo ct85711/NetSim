@@ -33,17 +33,17 @@ void* netAddress::setIpv4Address(string cidrNotation)
 	if (mask >=24) {
 		mask = 32 - mask;
 		unsigned char thebits = 255 << mask;
-		theAddress->netmask = tuple <short, short, short, short>(255, 255, 255, thebits);
+		theAddress->netmask = tuple <short, short, short, short>((short)255, (short)255, (short)255, (short)thebits);
 	}
 	else if (mask >=16) {
 		mask = 24 - mask;
 		unsigned char thebits = 255 << mask;
-		theAddress->netmask = tuple <short, short, short, short>(255, 255, thebits, 0);
+		theAddress->netmask = tuple <short, short, short, short>((short)255, (short)255, (short)thebits, (short)0);
 	}
 	else {
 		mask = 16 - mask;
 		unsigned char thebits = 255 << mask;
-		theAddress->netmask = tuple <short, short, short, short>(255, thebits, 0, 0);
+		theAddress->netmask = tuple <short, short, short, short>((short)255, (short)thebits, (short)0, (short)0);
 	}
 	
 	return theAddress;

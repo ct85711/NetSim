@@ -6,7 +6,7 @@
 #include "netAddr.h"
 
 //This makes it so the program can initialize the netAddress class
-netAddress* netAddress::address = 0;
+//netAddress* netAddress::address = 0;
 
 //Setup a random engine to generate between 0-255
 static std::default_random_engine randEng;
@@ -21,6 +21,10 @@ class ethInterface
 	string macAddress;
 
 	void generateMac();
+
+	//Disable the copy and assignment operations
+	ethInterface(ethInterface& other) = delete;
+	void operator=(const ethInterface& other) = delete;
 
 public:
 

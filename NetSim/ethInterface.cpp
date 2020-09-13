@@ -26,22 +26,22 @@ ethInterface::ethInterface()
 
 void ethInterface::addipv4address(string cidr)
 {
-	addressFactory->setIpv4Address(cidr);
+	addresses.push_back(addressFactory->setIpv4Address(cidr));
 }
 
 void ethInterface::addipv4address(string addr, string mask)
 {
-	addressFactory->setIpv4Address(addr, mask);
+	addresses.push_back(addressFactory->setIpv4Address(addr, mask));
 }
 
 void ethInterface::addipv6address(string cidr)
 {
-	addressFactory->setIpv6Address(cidr);
+	addresses.push_back(addressFactory->setIpv6Address(cidr));
 }
 
 void ethInterface::addipv6address(string addr, string mask)
 {
-	addressFactory->setIpv6Address(addr, mask);
+	addresses.push_back(addressFactory->setIpv6Address(addr, mask));
 }
 
 ethInterface& ethInterface::getConnection()
