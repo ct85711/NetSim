@@ -17,7 +17,7 @@ void* netAddress::setIpv4Address(string cidrNotation)
 
 	size_t pos = cidrNotation.rfind('/');
 	//Get the mask bit amount
-	int mask = std::stoi(cidrNotation.substr(++pos));
+	unsigned int mask = std::stoul(cidrNotation.substr(++pos));
 	string addressPortion = cidrNotation.substr(0U, --pos);
 	short ipParts[4];
 	for (int part = 0; part < 4; part++)

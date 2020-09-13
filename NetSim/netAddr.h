@@ -13,8 +13,6 @@ class netAddress {
 		ipv4addr() = default;
 		tuple<short, short, short, short> address;
 		tuple<short, short, short, short> netmask;
-
-		
 	};
 
 	struct ipv6addr
@@ -23,7 +21,7 @@ class netAddress {
 		tuple<char[4], char[4], char[4], char[4], char[4], char[4], char[4], char[4]> netmask;
 	};
 	
-	netAddress() {}
+	netAddress() = default;
 	~netAddress() = default;
 
 	public:
